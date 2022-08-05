@@ -14,9 +14,15 @@
         android:text="Pipe Brand" />
 
     <RadioGroup
-        android:id="@+id/rbgbrand"
+        android:id="@+id/rbgBrand"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/rbAce"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ace" />
 
         <RadioButton
             android:id="@+id/rbAmily"
@@ -30,11 +36,6 @@
             android:layout_height="wrap_content"
             android:text="Arad" />
 
-        <RadioButton
-            android:id="@+id/rbAce"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ace" />
     </RadioGroup>
 
     <TextView
@@ -44,9 +45,9 @@
         android:text="Pipe Diameter" />
 
     <RadioGroup
-        android:id="@+id/rbgdiameter"
+        android:id="@+id/rbgDiameter"
         android:layout_width="match_parent"
-        android:layout_height="448dp">
+        android:layout_height="446dp">
 
         <RadioButton
             android:id="@+id/rbOnePoint"
@@ -61,17 +62,16 @@
             android:text="1.5" />
 
         <RadioButton
-            android:id="@+id/rbPointThree"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="0.3" />
-
-        <RadioButton
             android:id="@+id/rbPointFive"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="0.5" />
 
+        <RadioButton
+            android:id="@+id/rbPointThree"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0.3" />
     </RadioGroup>
 
     <Space
