@@ -24,22 +24,18 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 // TODO Milestone 3-1: implement LoaderManager.LoaderCallbacks<Cursor>
-public class MainActivity extends AppCompatActivity implements BillDialogFragment.ErrorDialogListener {
+public class MainActivity extends AppCompatActivity implements BillDialogFragment.ErrorDialogListener, LoaderManager.LoaderCallbacks<Cursor> {
     ArrayList<Bill> bills;
     BillsAdapter billsAdapter;
     int month;
@@ -62,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements BillDialogFragmen
         btnPipeListenerMethod();
 
         // TODO Milestone 3-3: use initLoader() here
+        LoaderManager.getInstance(this).initLoader(0,null,this);
     }
 
     private void btnPipeListenerMethod() {
@@ -97,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements BillDialogFragmen
     protected void onResume() {
         super.onResume();
         // TODO Milestone 3-4: use restartLoader() here
+        LoaderManager.getInstance(this).restartLoader(0, null, this);
     }
 
     private void initialNightMode() {
@@ -219,6 +217,8 @@ public class MainActivity extends AppCompatActivity implements BillDialogFragmen
                 cv.put(KEY_PACK_COLUMN, pack);
                 cv.put(KEY_MONTH_COLUMN, month);
 
+                cv.put(KEY_BRAND_DIAMETER_TYPE_COLUMN, pipe);
+
                 ContentResolver cr = getContentResolver();
                 Uri uri = cr.insert(BillsContentProvider.CONTENT_URI, cv);
                 String rowID = uri.getPathSegments().get(1);
@@ -253,4 +253,39 @@ public class MainActivity extends AppCompatActivity implements BillDialogFragmen
     //   onCreateLoader will initialize the CursorLoader and the
     //   onLoadFinished will collect all data and store them into the bills ArrayList
     //  Tip: for the Bill's pipe type, use the constructor: new Pipe(brand, diameter)
+
+    @NonNull
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args){
+        CursorLoader loader = new CursorLoader(this, BillsContentProvider.CONTENT_URI, null, null, null, null);
+        return loader;
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
+        int INDEX_BRAND = data.getColumnIndexOrThrow(KEY_BRAND_COLUMN);
+        int INDEX_DIAMETER = data.getColumnIndexOrThrow(KEY_DIAMETER_COLUMN);
+        int INDEX_PREVIOUS = data.getColumnIndexOrThrow(KEY_PREVIOUS_COLUMN);
+        int INDEX_CURRENT = data.getColumnIndexOrThrow(KEY_CURRENT_COLUMN);
+        int INDEX_TYPE = data.getColumnIndexOrThrow(KEY_BRAND_DIAMETER_TYPE_COLUMN);
+        int INDEX_PACK = data.getColumnIndexOrThrow(KEY_PACK_COLUMN);
+        int INDEX_MONTH = data.getColumnIndexOrThrow(KEY_MONTH_COLUMN);
+        while(data.moveToNext()){
+            String brand = data.getString(INDEX_BRAND);
+            double diameter = data.getDouble(INDEX_DIAMETER);
+            int prev = data.getInt(INDEX_PREVIOUS);
+            int curr = data.getInt(INDEX_CURRENT);
+            long type = data.getLong(INDEX_TYPE);
+            int pack = data.getInt(INDEX_PACK);
+            int month = data.getInt(INDEX_MONTH);
+            Pipe p = new Pipe(brand, diameter);
+            Bill b = new Bill(prev,curr,type,pack,month);
+        }
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+
+    }
+
 }

@@ -10,6 +10,8 @@ public class Bill {
     public static final String KEY_PACK_COLUMN = "PACK_COLUMN";
     public static final String KEY_MONTH_COLUMN = "MONTH_COLUMN";
 
+    public static final String KEY_BRAND_DIAMETER_TYPE_COLUMN = "BRAND_DIAMETER_TYPE_COLUMN";
+
     int id;
     int previous;
     int current;
