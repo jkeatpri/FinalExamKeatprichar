@@ -209,6 +209,26 @@ public class MainActivity extends AppCompatActivity implements BillDialogFragmen
 
                 // TODO Milestone 2-3: use Content Resolver here and use Content Values
                 //  to insert all data in columns into the database as defined in Bill.java class
+
+
+                ContentValues cv = new ContentValues();
+                cv.put(KEY_PREVIOUS_COLUMN, prev);
+                cv.put(KEY_CURRENT_COLUMN, curr);
+                cv.put(KEY_BRAND_COLUMN, pipe_brand);
+                cv.put(KEY_DIAMETER_COLUMN, pipe_diameter);
+                cv.put(KEY_PACK_COLUMN, pack);
+                cv.put(KEY_MONTH_COLUMN, month);
+
+                ContentResolver cr = getContentResolver();
+                Uri uri = cr.insert(BillsContentProvider.CONTENT_URI, cv);
+                String rowID = uri.getPathSegments().get(1);
+
+                Bill b = new Bill(prev,curr,type,pack,month);
+                b.id = Integer.parseInt(rowID);
+                b.month = month;
+                bills.add(b);
+                billsAdapter.notifyDataSetChanged();
+
             }
         });
     }
