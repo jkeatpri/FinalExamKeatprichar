@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements BillDialogFragmen
     int month;
     int last_consumption;
     SharedPreferences preferences;
+    public static final String PREF_NIGHT = "NIGHT";
     SharedPreferences.Editor editor;
 
     @Override
@@ -125,8 +126,8 @@ public class MainActivity extends AppCompatActivity implements BillDialogFragmen
         swNight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int[] textviews = {R.id.swNight, R.id.tvTitle, R.id.rbRegular, R.id.rbBasic, R.id.rbPremium, R.id.tvLblPackage, R.id.tvLblPipe,R.id.tvPipe, R.id.tvLblPrev, R.id.tvLblNew, R.id.tvLblHistory, R.id.tvLblBill, R.id.etResult, R.id.etPrev, R.id.etNew};
                 ConstraintLayout clMain = findViewById(R.id.clMain);
+                int[] textviews = {R.id.swNight, R.id.tvTitle, R.id.rbRegular, R.id.rbBasic, R.id.rbPremium, R.id.tvLblPackage, R.id.tvLblPipe,R.id.tvPipe, R.id.tvLblPrev, R.id.tvLblNew, R.id.tvLblHistory, R.id.tvLblBill, R.id.etResult, R.id.etPrev, R.id.etNew};
                 if (swNight.isChecked()) {
                     editor.putBoolean("night", true);
                     clMain.setBackgroundColor(Color.BLACK);

@@ -1,13 +1,20 @@
 package com.example.midterms;
 
-import androidx.appcompat.app.AppCompatActivity;
+import static com.example.midterms.MainActivity.PREF_NIGHT;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class PipeActivity extends AppCompatActivity {
 
@@ -18,12 +25,29 @@ public class PipeActivity extends AppCompatActivity {
         btnConfirmListenerMethod();
 
         // TODO Milestone A: get SharedPreference on night mode and change false to variable
-        initializeNightMode(false);
+        SharedPreferences preferences = getSharedPreferences("Pipe", Activity.MODE_PRIVATE);
+        boolean night = preferences.getBoolean(PREF_NIGHT, false);
+        initializeNightMode(night);
+
     }
 
     // TODO Milestone A: implement night mode
     private void initializeNightMode(boolean night) {
-
+        ConstraintLayout clPipe = findViewById(R.id.clPipe);
+        int textviews[] = {R.id.tvLblBrand, R.id.rbAce, R.id.rbAmily, R.id.rbArad, R.id.tvLblDiam, R.id.rbOnePoint, R.id.rbOnePtFive, R.id.rbPointFive, R.id.rbPointThree};
+        if (night) {
+            clPipe.setBackgroundColor(Color.BLACK);
+            for (int tv : textviews) {
+                TextView view = findViewById(tv);
+                view.setTextColor(Color.WHITE);
+            }
+        } else {
+            clPipe.setBackgroundColor(Color.WHITE);
+            for (int tv : textviews) {
+                TextView view = findViewById(tv);
+                view.setTextColor(Color.BLACK);
+            }
+        }
     }
 
     private void btnConfirmListenerMethod() {
