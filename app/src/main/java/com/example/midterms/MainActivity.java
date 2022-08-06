@@ -31,6 +31,7 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -70,8 +71,15 @@ public class MainActivity extends AppCompatActivity implements BillDialogFragmen
                     public void onActivityResult(ActivityResult result) {
                         if (result.getResultCode() == RESULT_OK) {
                             Intent outIntent = result.getData();
+
                             // TODO Milestone B-2: handle outIntent containing extras: brand and diameter
                             //  and set text of tvPipe to Brand/Diameter (example: Arad/0.5)
+                           String brand = outIntent.getStringExtra(PipeActivity.EXTRA_RESULT);
+                           double diameter = outIntent.getDoubleExtra(PipeActivity.EXTRA_RESULT);
+                           if(brand && diameter){
+                               Toast.makeText(MainActivity.this, "%s/.2f", brand, diameter, Toast.LENGTH_SHORT).show();
+                           }
+
                         }
                     }
                 });

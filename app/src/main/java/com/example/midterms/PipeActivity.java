@@ -17,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class PipeActivity extends AppCompatActivity {
+    public static final String EXTRA_PIPE ="com.example.midterm.PIPE";
+    public static final String EXTRA_RESULT ="com.example.midterm.RESULT";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,12 @@ public class PipeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // TODO Milestone B-1: use the outIntent and store the chosen brand and the chosen diameter as extras
                 //  and after which, use setResult with ACTION_OK and the intent as arguments
+                String brand;
+                double diameter;
+
+                Intent outIntent = new Intent();
+                outIntent.putExtra(EXTRA_RESULT, brand);
+                outIntent.putExtra(EXTRA_RESULT, diameter);
                 setResult(RESULT_OK, outIntent);
                 finish();
             }
