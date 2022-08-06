@@ -33,6 +33,7 @@ public class PipeActivity extends AppCompatActivity {
 
     }
 
+
     // TODO Milestone A: implement night mode
     private void initializeNightMode(boolean night) {
         ConstraintLayout clPipe = findViewById(R.id.clPipe);
