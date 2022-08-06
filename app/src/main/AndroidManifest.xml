@@ -21,6 +21,9 @@
             android:name=".PipeActivity"
             android:exported="false">
             <!--    TODO Milestone D: add meta-data here    -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
         </activity>
         <activity
             android:name=".MainActivity"
